@@ -35,6 +35,3 @@ def my_shopping_list()
     else:
         speech = base_speech + " and ".join(shopping_list)
     return statement(speech)
-
-if __name__ == "__main__":
-    app.run(debug=True)
