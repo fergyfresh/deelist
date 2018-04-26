@@ -19,19 +19,21 @@ def get_shopping_list():
         return(r.json())
 
 def shopping_list_items():
-    shopping_list = get_shopping_list()['items']
+    shopping_list = get_shopping_list()
+    if shopping_list == None:
+        return []
     items = []
     for item in shopping_list:
         if item['status'] == "active":
             items.append(item['value'])
     return items
 
-@ask.intent("WhatIsMyShoppingList")
+@ask.intent("WhatIsMyShoppingListIntent")
 def my_shopping_list():
     shopping_list = shopping_list_items()
     speech = "Your list is "
     if shopping_list == []:
         speech += "empty"
     else:
-        speech = base_speech + " and ".join(shopping_list)
+        speech += " and ".join(shopping_list)
     return statement(speech)
