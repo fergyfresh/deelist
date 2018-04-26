@@ -27,7 +27,7 @@ def shopping_list_items():
     return items
 
 @ask.intent("WhatIsMyShoppingList")
-def my_shopping_list()
+def my_shopping_list():
     shopping_list = shopping_list_items()
     speech = "Your list is "
     if shopping_list == []:
