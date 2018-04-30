@@ -15,9 +15,6 @@ def get_shopping_list():
     HEADER = {'Accept': 'application/json',
              'Authorization': 'Bearer {}'.format(TOKEN)}
     r = requests.get(URL, headers=HEADER)
-    app.logger.debug("****************** get_shopping_list() ************************")
-    app.logger.debug(r.text)
-    app.logger.debug("****************** get_shopping_list() ************************")
     if r.status_code == 200:
         return(r.json())
 
@@ -26,9 +23,6 @@ def get_lists():
     HEADER = {'Accept': 'application/json',
               'Authorization': 'Bearer {}'.format(TOKEN)}
     r = requests.get(BASE_URL, headers=HEADER)
-    app.logger.debug("****************** get_lists() ************************")
-    app.logger.debug(r.json)
-    app.logger.debug("****************** get_lists() ************************")
     if r.status_code == 200:
         return(r.json())
 
@@ -38,9 +32,6 @@ def get_shopping_list_id():
     for l in list_metadata["lists"]:
         if l["name"] == "Alexa shopping list":
             list_id = l["listId"]
-    app.logger.debug("****************** get_shopping_list_id() ************************")
-    app.logger.debug(list_id)
-    app.logger.debug("****************** get_shopping_list_id() ************************")
     return list_id
 
 def shopping_list_items():
