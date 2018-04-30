@@ -29,7 +29,7 @@ def get_lists():
     app.logger.debug("****************** get_lists() ************************")
     app.logger.debug(r.json)
     app.logger.debug("****************** get_lists() ************************")
-    if r.status_code = 200:
+    if r.status_code == 200:
         return(r.json()
 
 def get_shopping_list_id(lists):
