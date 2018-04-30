@@ -19,8 +19,8 @@ def get_shopping_list():
     app.logger.debug(r.text)
     app.logger.debug("****************** get_shopping_list() ************************")
     if r.status_code == 200:
-        return(r.json())                                        
-    
+        return(r.json())
+
 def get_lists():
     TOKEN = context.System.user.permissions.consentToken
     HEADER = {'Accept': 'application/json',
