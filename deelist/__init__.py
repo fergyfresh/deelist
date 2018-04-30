@@ -48,7 +48,7 @@ def shopping_list_items():
     if shopping_list == None:
         return []
     items = []
-    for item in shopping_list:
+    for item in shopping_list["items"]:
         if item['status'] == "active":
             items.append(item['value'])
     return items
