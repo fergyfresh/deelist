@@ -10,7 +10,8 @@ log = logging.getLogger('flask_ask').setLevel(logging.DEBUG)
 BASE_URL = "https://api.amazonalexa.com/v2/householdlists/"
 
 def get_shopping_list():
-    URL = BASE_URL + get_shopping_list_id() + "/active"
+    lists = get_lists()
+    URL = BASE_URL + get_shopping_list_id(lists["lists"]) + "/active"
     TOKEN = context.System.user.permissions.consentToken
     HEADER = {'Accept': 'application/json',
              'Authorization': 'Bearer {}'.format(TOKEN)}
