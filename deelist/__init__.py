@@ -15,21 +15,24 @@ def get_shopping_list():
     HEADER = {'Accept': 'application/json',
              'Authorization': 'Bearer {}'.format(TOKEN)}
     r = requests.get(URL, headers=HEADER)
+    app.logger.debug("****************** get_shopping_list() ************************")
+    app.logger.debug(r.text)
+    app.logger.debug("****************** get_shopping_list() ************************")
     if r.status_code == 200:
-        return(r.json())
-
-def shopping_list_items():
-    shopping_list = get_shopping_list()
-    if shopping_list == None:
-        return []
-    items = []
-    for item in shopping_list:
-        if item['status'] == "active":
-            items.append(item['value'])
-    return items
+        return(r.json())                                        
+    
+def get_lists():
+    TOKEN = context.System.user.permissions.consentToken
+    HEADER = {'Accept': 'application/json',
+              'Authorization': 'Bearer {}'.format(TOKEN)}
+    r = requests.get(BASE_URL, headers=HEADER)
+    app.logger.debug("****************** get_lists() ************************")
+    app.logger.debug(r.text)
+    app.logger.debug("****************** get_lists() ************************")
 
 @ask.intent("WhatIsMyShoppingListIntent")
 def my_shopping_list():
+    lists = get_lists()
     shopping_list = shopping_list_items()
     speech = "Your list is "
     if shopping_list == []:
