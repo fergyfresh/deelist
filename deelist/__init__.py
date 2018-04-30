@@ -10,7 +10,7 @@ log = logging.getLogger('flask_ask').setLevel(logging.DEBUG)
 BASE_URL = "https://api.amazonalexa.com/v2/householdlists/"
 
 def get_shopping_list():
-    URL = BASE_URL + "shopping_list_list_id/active"
+    URL = BASE_URL + get_shopping_list_id() + "/active"
     TOKEN = context.System.user.permissions.consentToken
     HEADER = {'Accept': 'application/json',
              'Authorization': 'Bearer {}'.format(TOKEN)}
@@ -27,8 +27,20 @@ def get_lists():
               'Authorization': 'Bearer {}'.format(TOKEN)}
     r = requests.get(BASE_URL, headers=HEADER)
     app.logger.debug("****************** get_lists() ************************")
-    app.logger.debug(r.text)
+    app.logger.debug(r.json)
     app.logger.debug("****************** get_lists() ************************")
+    if r.status_code = 200:
+        return(r.json()
+
+def get_shopping_list_id(lists):
+    list_id = ""
+    for l in lists:
+        if l["name"] == "Alexa shopping list":
+            list_id = l["listId"]
+    app.logger.debug("****************** get_shopping_list_id() ************************")
+    app.logger.debug(list_id)
+    app.logger.debug("****************** get_shopping_list_id() ************************")
+    return list_id
 
 def shopping_list_items():
     shopping_list = get_shopping_list()
