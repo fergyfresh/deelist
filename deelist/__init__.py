@@ -30,6 +30,16 @@ def get_lists():
     app.logger.debug(r.text)
     app.logger.debug("****************** get_lists() ************************")
 
+def shopping_list_items():
+    shopping_list = get_shopping_list()
+    if shopping_list == None:
+        return []
+    items = []
+    for item in shopping_list:
+        if item['status'] == "active":
+            items.append(item['value'])
+    return items
+
 @ask.intent("WhatIsMyShoppingListIntent")
 def my_shopping_list():
     lists = get_lists()
