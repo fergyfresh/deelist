@@ -38,8 +38,8 @@ def get_shopping_list_id():
     for l in list_metadata["lists"]:
         if l["name"] == "Alexa shopping list":
             list_id = l["listId"]
-    app.logger.debug("****************** get_shopping_list_id() ************************")
-    app.logger.debug(list_id)
+    app.logger.debug("****************** get_shopping_list_id() ************************")
+    app.logger.debug(list_id)
     app.logger.debug("****************** get_shopping_list_id() ************************")
     return list_id
 
