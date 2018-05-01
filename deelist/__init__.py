@@ -63,7 +63,7 @@ def delete_from_shopping_list(item):
     item_id = ""
     app.logger.debug(shopping_list['items'])
     for i in shopping_list['items']:
-        if i['value'].lower() == item.lower() and \
+        if i['value'] == item and \
              i['status'] == 'active':
             item_id = i['id']
     URL = BASE_URL + get_shopping_list_id() + \
