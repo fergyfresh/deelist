@@ -17,7 +17,7 @@ class ListWrapper(object):
             return(r.json())
     
     def get_shopping_list_id(self, token):
-        list_metadeta = self.get_lists(token)
+        list_metadata = self.get_lists(token)
         list_id = ""
         for list in list_metadata["lists"]:
             if list["name"] == "Alexa shopping list":
