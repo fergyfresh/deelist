@@ -12,7 +12,7 @@ class ListWrapper(object):
     
     def get_lists(self, token):
         r = requests.get(self.base_url, 
-                         headers=header(token))
+                         headers=self.header(token))
         if r.status_code == 200:
             return(r.json())
     
@@ -28,7 +28,7 @@ class ListWrapper(object):
         URL = self.base_url + \
               self.get_shopping_list_id(token) + \
               "/active"
-        r = requests.get(URL, headers=header(token))
+        r = requests.get(URL, headers=self.header(token))
         if r.status_code == 200:
             return(r.json())
 
@@ -45,4 +45,4 @@ class ListWrapper(object):
     def delete_item_in_shopping_list(self, item_id, token):
         URL = self.base_url + self.get_shopping_list_id(token) + \
               "/items/" + item_id
-        return requests.delete(URL, headers=header(token))
+        return requests.delete(URL, headers=self.header(token))
