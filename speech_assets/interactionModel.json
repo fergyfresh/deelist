@@ -25,7 +25,7 @@
                              "remove {item} from the list",
                              "delete {item} from the shopping list",
                              "remove {item} from my list",
-                             "delete {item} from my shopping list", ] } ], 
+                             "delete {item} from my shopping list" ] } ], 
           "types": [] 
         } 
     }
