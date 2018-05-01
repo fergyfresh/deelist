@@ -26,6 +26,7 @@ def my_shopping_list():
 
 @ask.intent("DeleteItemFromShoppingListIntent")
 def delete_from_shopping_list(item):
+    TOKEN = context.System.user.permissions.consentToken
     shopping_list = api.get_shopping_list(TOKEN)
     if shopping_list == []:
         return statement("Your list is empty.")
@@ -34,7 +35,7 @@ def delete_from_shopping_list(item):
         if i['value'] == item and \
              i['status'] == 'active':
             item_id = i['id']
-    r = api.delete_item_in_shopping_list(TOKEN, item_id)
+    r = api.delete_item_in_shopping_list(item_id=item_id, token=TOKEN)
     if r.status_code == 200:
         return statement("Deleted {}.".format(item))
     return statement("Don't think I found that.")
