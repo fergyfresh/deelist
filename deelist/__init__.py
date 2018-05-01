@@ -54,3 +54,23 @@ def my_shopping_list():
     else:
         speech += " and ".join(shopping_list)
     return statement(speech)
+
+@ask.intent("WhatIsMyShoppingListIntent")
+def delete_from_shopping_list(item):
+    shopping_list = shopping_list_items()
+    if shopping_list == []:
+        return statement("Your list is empty.")
+    item_id = ""
+    for i in shopping_list['items']:
+        if i.lower() == item.lower() and \
+             i['status'] == 'active':
+            item_id = i['id']
+    URL = BASE_URL + get_shopping_list_id() + \
+            "/items/" +  "item_id"
+    TOKEN = context.System.user.permissions.consentToken
+    HEADER = {'Accept': 'application/json',
+              'Authorization': 'Bearer {}'.format(TOKEN)}
+    r = requests.delete(URL, headers=HEADER)
+    if r.status_code == 200:
+        return statment("Deleted {}.".format(item))
+    return statement("Don't think I found that.")
