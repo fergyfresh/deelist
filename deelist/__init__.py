@@ -72,5 +72,5 @@ def delete_from_shopping_list(item):
               'Authorization': 'Bearer {}'.format(TOKEN)}
     r = requests.delete(URL, headers=HEADER)
     if r.status_code == 200:
-        return statment("Deleted {}.".format(item))
+        return statement("Deleted {}.".format(item))
     return statement("Don't think I found that.")
