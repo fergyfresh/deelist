@@ -44,6 +44,14 @@ def shopping_list_items():
             items.append(item['value'])
     return items
 
+def delete_item_in_shopping_list(item_id):
+    URL = BASE_URL + get_shopping_list_id() + \
+          "/items/" +  item_id
+    TOKEN = context.System.user.permissions.consentToken
+    HEADER = {'Accept': 'application/json',
+              'Authorization': 'Bearer {}'.format(TOKEN)}
+    return requests.delete(URL, headers=HEADER)
+
 @ask.intent("WhatIsMyShoppingListIntent")
 def my_shopping_list():
     lists = get_lists()
@@ -65,12 +73,7 @@ def delete_from_shopping_list(item):
         if i['value'] == item and \
              i['status'] == 'active':
             item_id = i['id']
-    URL = BASE_URL + get_shopping_list_id() + \
-            "/items/" +  item_id
-    TOKEN = context.System.user.permissions.consentToken
-    HEADER = {'Accept': 'application/json',
-              'Authorization': 'Bearer {}'.format(TOKEN)}
-    r = requests.delete(URL, headers=HEADER)
+    r = delete_item_in_shopping_list(item_id)
     if r.status_code == 200:
         return statement("Deleted {}.".format(item))
     return statement("Don't think I found that.")
