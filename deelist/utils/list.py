@@ -7,7 +7,7 @@ class ListWrapper(object):
         self.token = token
         self.header = header
         
-    def get_lists(self)
+    def get_lists(self):
         r = requests.get(self.base_url, 
                          headers=self.header)
         if r.status_code == 200:
