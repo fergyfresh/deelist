@@ -57,10 +57,11 @@ def my_shopping_list():
 
 @ask.intent("DeleteItemFromShoppingListIntent")
 def delete_from_shopping_list(item):
-    shopping_list = shopping_list_items()
+    shopping_list = get_shopping_list()
     if shopping_list == []:
         return statement("Your list is empty.")
     item_id = ""
+    app.logger.debug(shopping_list['items'])
     for i in shopping_list['items']:
         if i.lower() == item.lower() and \
              i['status'] == 'active':
