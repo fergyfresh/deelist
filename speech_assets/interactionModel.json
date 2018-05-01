@@ -1,32 +1,50 @@
 {
-  "interactionModel":
-    { 
-      "languageModel":
-        { 
-          "invocationName": "deelist",
-          "intents": [ 
-              { "name": "AMAZON.CancelIntent",
-                "samples": [] },
-              { "name": "AMAZON.HelpIntent",
-                "samples": [] },
-              { "name": "AMAZON.StopIntent",
-                "samples": [] },
-              { "name": "WhatIsMyShoppingListIntent",
-                "slots": [],
-                "samples": [ "What's my shopping list",
-                             "Whats my shopping list",
-                             "What is my shopping list" ] },
-              { "name": "DeleteItemFromShoppingListIntent",
-                "slots": [ { "name": "item", "type": "AMAZON.Food" } ],
-                "samples": [ "to remove {item} from the list",
-                             "to delete {item} from the shopping list",
-                             "to remove {item} from my list",
-                             "to delete {item} from my shopping list",
-                             "remove {item} from the list",
-                             "delete {item} from the shopping list",
-                             "remove {item} from my list",
-                             "delete {item} from my shopping list" ] } ], 
-          "types": [] 
-        } 
+    "interactionModel": {
+        "languageModel": {
+            "invocationName": "deelist",
+            "intents": [
+                {
+                    "name": "AMAZON.CancelIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.HelpIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.StopIntent",
+                    "samples": []
+                },
+                {
+                    "name": "WhatIsMyShoppingListIntent",
+                    "slots": [],
+                    "samples": [
+                        "What's my shopping list",
+                        "Whats my shopping list",
+                        "What is my shopping list"
+                    ]
+                },
+                {
+                    "name": "DeleteItemFromShoppingListIntent",
+                    "slots": [
+                        {
+                            "name": "item",
+                            "type": "AMAZON.Food"
+                        }
+                    ],
+                    "samples": [
+                        "remove {item} from the list",
+                        "delete {item} the shopping list",
+                        "remove {item} from my list",
+                        "delete {item} from my shopping list",
+                        "to remove {item} from the list",
+                        "to delete {item} the shopping list",
+                        "to remove {item} from my list",
+                        "to delete {item} from my shopping list"
+                    ]
+                }
+            ],
+            "types": []
+        }
     }
 }
