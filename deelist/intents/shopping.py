@@ -24,7 +24,7 @@ def delete_from_shopping_list(item):
         if i['value'] == item and \
               i['status'] == 'active':
             item_id = i['id']
-     r = api.delete_item_in_shopping_list(item_id=item_id, token=TOKEN)
-     if r.status_code == 200:
-         return statement("Deleted {}.".format(item))
-     return statement("Don't think I found that.")
+    r = api.delete_item_in_shopping_list(item_id=item_id, token=TOKEN)
+    if r.status_code == 200:
+        return statement("Deleted {}.".format(item))
+    return statement("Don't think I found that.")
