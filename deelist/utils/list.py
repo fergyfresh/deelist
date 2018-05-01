@@ -5,7 +5,7 @@ class ListWrapper(object):
     def __init__(self, base_url):
         self.base_url = base_url
     
-    def header(token):
+    def header(self, token):
         HEADER = {"Accept": "application/json",
                   "Authorization": "Bearer {}".format(token)}
         return HEADER
