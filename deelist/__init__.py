@@ -61,13 +61,12 @@ def delete_from_shopping_list(item):
     if shopping_list == []:
         return statement("Your list is empty.")
     item_id = ""
-    app.logger.debug(shopping_list['items'])
     for i in shopping_list['items']:
         if i['value'] == item and \
              i['status'] == 'active':
             item_id = i['id']
     URL = BASE_URL + get_shopping_list_id() + \
-            "/items/" +  "item_id"
+            "/items/" +  item_id
     TOKEN = context.System.user.permissions.consentToken
     HEADER = {'Accept': 'application/json',
               'Authorization': 'Bearer {}'.format(TOKEN)}
