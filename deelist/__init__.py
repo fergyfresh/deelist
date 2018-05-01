@@ -55,7 +55,7 @@ def my_shopping_list():
         speech += " and ".join(shopping_list)
     return statement(speech)
 
-@ask.intent("WhatIsMyShoppingListIntent")
+@ask.intent("DeleteItemFromShoppingListIntent")
 def delete_from_shopping_list(item):
     shopping_list = shopping_list_items()
     if shopping_list == []:
