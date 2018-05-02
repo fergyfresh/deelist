@@ -4,7 +4,7 @@ DeeList is an Alexa skill to remove stuff from your shopping list. You can add s
 This project is still in it's early phases and subject to change, however it is functional and ready to use. The only few catches right now are that you have to start up your own  HTTPS web server for now, until I get it working with AWS Lambda and launch the skill for public use in the developer portal.
 
 Features
-What can this bad boy do, you ask? Well as of right now it can list your shopping list which actually doesn't work outside of the test portal because my Alexa just uses the default shopping list intent instead of my intent. It can also delete items from the shopping list. The default invocation name is `dee list` so to invoke and of the utterances you first have to say `Alexa ask dee list....`.
+What can this bad boy do, you ask? Well as of right now it can list your shopping list which actually doesn't work outside of the test portal because my Alexa just uses the default shopping list intent instead of my intent. It can also delete items from the shopping list. The default invocation name is `dee list` so to invoke any of the utterances you first have to say `Alexa ask dee list....`.
 
 ### Currently Implemented
 
