@@ -45,4 +45,6 @@ class ListWrapper(object):
     def delete_item_in_shopping_list(self, item_id, token):
         URL = self.base_url + self.get_shopping_list_id(token) + \
               "/items/" + item_id
-        return requests.delete(URL, headers=self.header(token))
+        r = requests.delete(URL, headers=self.header(token))
+        if r.status_code == 200:
+            return(r.json))
