@@ -47,4 +47,4 @@ class ListWrapper(object):
               "/items/" + item_id
         r = requests.delete(URL, headers=self.header(token))
         if r.status_code == 200:
-            return(r.json))
+            return(r.json())
