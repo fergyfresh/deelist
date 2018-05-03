@@ -13,4 +13,7 @@ log = logging.getLogger('flask_ask').setLevel(logging.DEBUG)
 BASE_URL = "https://api.amazonalexa.com/v2/householdlists/"
 api = ListWrapper(BASE_URL)
 
+def lambda_handler(event, _context):
+    return ask.run_aws_lambda(event)
+
 from . import intents
