@@ -1,5 +1,6 @@
 from flask_ask import statement, context
 from deelist import ask, app, api
+import requests
 
 @ask.intent("WhatIsMyShoppingListIntent")
 def my_shopping_list():
@@ -23,8 +24,8 @@ def delete_from_shopping_list(item):
         if i['value'] == item and \
               i['status'] == 'active':
             item_id = i['id']
-    deleted_item = api.delete_item_in_shopping_list(item_id=item_id,
+    r = api.delete_item_in_shopping_list(item_id=item_id,
                                                     token=TOKEN)
-    if deleted_item == None:
-        return statement("Don't think I found {}.".format(item))
-    return statement("Deleted {}.".format(item))
+    if r.status_code == 200:
+        return statement("Deleted {}.".format(item))
+    return statement("Don't think I found {}.".format(item))
