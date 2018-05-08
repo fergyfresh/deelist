@@ -1,6 +1,15 @@
-from flask_ask import statement, context
+from flask_ask import statement, context, question
 from deelist import ask, app, api
 import requests
+
+@ask.launch
+def login():
+    text = "Welcome to dee list. Try asking me to delete \
+            something from your shopping list."
+    prompt = "For example, say delete relish from my shopping list."
+    return question(text).reprompt(prompt) \
+            .simple_card(title="Welcome to dee list",
+                         content="Try asking me to delete something.")
 
 @ask.intent("WhatIsMyShoppingListIntent")
 def my_shopping_list():
