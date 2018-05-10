@@ -11,6 +11,24 @@ def login():
             .simple_card(title="Welcome to dee list",
                          content="Try asking me to delete something.")
 
+@ask.intent("AMAZON.HelpIntent")
+def help():
+    return question(
+            "Here are some things you can say: \
+            what is on my shopping list \
+            what is on the shopping list \
+            delete relish from my shopping list").reprompt(
+                    "For example say, delete relish \
+                    from my shopping list.")
+
+@ask.intent("AMAZON.StopIntent")
+@def stop():
+    return statement("Stopping.")
+
+@ask.intent("AMAZON.CancelIntent")
+@def cancel():
+    return statement("Cancelling.")
+
 @ask.intent("WhatIsMyShoppingListIntent")
 def my_shopping_list():
     TOKEN = context.System.user.permissions.consentToken
