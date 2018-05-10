@@ -20,22 +20,26 @@ def login():
 def help():
     return question(
             "Here are some things you can say: \
-            what is on my shopping list \
-            what is on the shopping list \
+            what is on my shopping list, \
+            what is on the shopping list, \
             delete relish from my shopping list").reprompt(
                     "For example say, delete relish \
                     from my shopping list.")
 
 @ask.intent("AMAZON.StopIntent")
-@def stop():
+def stop():
     return statement("Stopping.")
 
 @ask.intent("AMAZON.CancelIntent")
-@def cancel():
+def cancel():
     return statement("Cancelling.")
 
 @ask.intent("WhatIsMyShoppingListIntent")
 def my_shopping_list():
+    user = context.System.user
+    if not hasattr(user, "permissions") or \
+       not hasattr(user.permissions, "consentToken"):
+        return statement(LIST_ACCESS)
     TOKEN = context.System.user.permissions.consentToken
     if TOKEN == None:
         return statement(LIST_ACCESS)
@@ -49,6 +53,10 @@ def my_shopping_list():
 
 @ask.intent("DeleteItemFromShoppingListIntent")
 def delete_from_shopping_list(item):
+    user = context.System.user
+    if not hasattr(user, "permissions") or \
+       not hasattr(user.permissions, "consentToken"):
+        return statement(LIST_ACCESS)
     TOKEN = context.System.user.permissions.consentToken
     if TOKEN == None:
         return statement(LIST_ACCESS)
