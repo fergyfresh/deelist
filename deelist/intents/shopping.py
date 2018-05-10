@@ -2,11 +2,16 @@ from flask_ask import statement, context, question
 from deelist import ask, app, api
 import requests
 
+LIST_ACCESS = "This skill doesn't work without list read \
+               and writes enabled. You need to open your \
+               Alexa app and enable these permissions."
+
 @ask.launch
 def login():
-    text = "Welcome to dee list. Try asking me to delete \
-            something from your shopping list."
-    prompt = "For example, say delete relish from my shopping list."
+    text = "Welcome to dee list. Try asking me to \
+            delete something from your shopping list."
+    prompt = "For example, say delete relish from my \
+              shopping list."
     return question(text).reprompt(prompt) \
             .simple_card(title="Welcome to dee list",
                          content="Try asking me to delete something.")
@@ -32,6 +37,8 @@ def help():
 @ask.intent("WhatIsMyShoppingListIntent")
 def my_shopping_list():
     TOKEN = context.System.user.permissions.consentToken
+    if TOKEN == None:
+        return statement(LIST_ACCESS)
     shopping_list = api.shopping_list_items(TOKEN)
     speech = "Your list is "
     if shopping_list == []:
@@ -43,6 +50,8 @@ def my_shopping_list():
 @ask.intent("DeleteItemFromShoppingListIntent")
 def delete_from_shopping_list(item):
     TOKEN = context.System.user.permissions.consentToken
+    if TOKEN == None:
+        return statement(LIST_ACCESS)
     shopping_list = api.get_shopping_list(TOKEN)
     if shopping_list == []:
         return statement("Your list is empty.")
@@ -52,7 +61,7 @@ def delete_from_shopping_list(item):
               i['status'] == 'active':
             item_id = i['id']
     r = api.delete_item_in_shopping_list(item_id=item_id,
-                                                    token=TOKEN)
+                                         token=TOKEN)
     if r.status_code == 200:
         return statement("Deleted {}.".format(item))
     return statement("Don't think I found {}.".format(item))
