@@ -1,4 +1,4 @@
-# deelist
+# deelist [Link to deployed skill](https://www.amazon.com/Self-dee-list/dp/B07CVS2T1Q/ref=sr_1_2?s=digital-skills&ie=UTF8&qid=1526410612&sr=1-2)
 DeeList is an Alexa skill to remove stuff from your shopping list. You can add stuff to your shopping list via the normal command `Alexa add spinach to my shopping list`, but if you want to remove stuff it tells you to use the app on your phone. Well, no more!
 
 This project is still in it's early phases and subject to change, however it is functional and ready to use. The only few catches right now are that you have to start up your own  HTTPS web server for now, until I get it working with AWS Lambda and launch the skill for public use in the developer portal.
