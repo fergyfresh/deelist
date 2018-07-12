@@ -78,22 +78,19 @@ class EnglishDeeListIntegrationTests(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def test_play_intent(self):
+    def test_valid_consent_token_intent(self):
         """ Test to see if we can properly play a stream """
         consent_token_request = play_request
     
         consent_token_request['context']['System']\
                              ['user']['permissions']\
                              ['consentToken'] = getenv("CONSENT_TOKEN")
-        print(getenv("CONSENT_TOKEN") + " MY CT")
         response = self.client.post('/', data=json.dumps(play_request))
         self.assertEqual(200, response.status_code)
 
         data = json.loads(response.data.decode('utf-8'))
         self.assertEqual("Don't think I found relish.",
                          data['response']['outputSpeech']['text'])
-
-
 
 
 if __name__ == '__main__':
