@@ -10,6 +10,7 @@ import flask_ask
 from os import getenv
 from requests import post
 from deelist import app
+from deelist.intents.shopping import LIST_ACCESS
 
 play_request = {
     "version": "1.0",
@@ -79,7 +80,7 @@ class EnglishDeeListIntegrationTests(unittest.TestCase):
         pass
 
     def test_valid_consent_token_intent(self):
-        """ Test to see if we can properly play a stream """
+        """ Tests that an item not on the list is not deleted """
         consent_token_request = play_request
     
         consent_token_request['context']['System']\
@@ -92,8 +93,16 @@ class EnglishDeeListIntegrationTests(unittest.TestCase):
         self.assertEqual("Don't think I found relish.",
                          data['response']['outputSpeech']['text'])
 
+    def test_invalid_consent_token_intent(self):
+        """ Tests that delete request fails with invalid token """
+        
+        response = self.client.post('/', data=json.dumps(play_request))
+        self.assertEqual(200, response.status_code)
+	
+	data = json.loads(response.data.decode('utf-8))				
+	self.assertEqual(LIST_ACCESS,
+			 data['response']['outputSpeech']['text'])	
 
-	
-	
+
 if __name__ == '__main__':
     unittest.main()
