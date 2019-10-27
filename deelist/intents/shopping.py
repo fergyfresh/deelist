@@ -6,6 +6,30 @@ LIST_ACCESS = "This skill doesn't work without list read \
                and writes enabled. You need to open your \
                Alexa app and enable these permissions."
 
+def hasnt_allowed_list_permissions():
+    user = context.System.user
+    return not hasattr(user, "permissions") or \
+           not hasattr(user.permissions, "consentToken")
+
+def get_token():
+    return context.System.user.permissions.consentToken
+
+def get_shopping_list_text(shopping_list):
+    speech = ""
+    if shopping_list == []:
+      speech = "Your list is empty."
+    else:
+      speech = "Your shopping list is: " + ", ".join(shopping_list)
+    return speech
+
+def get_item_id(shopping_list, item):
+    item_id = ""
+    for i in shopping_list['items']:
+        if i['value'] == item and \
+              i['status'] == 'active':
+            item_id = i['id']
+    return item_id
+
 @ask.launch
 def login():
     text = "Welcome to dee list. Try asking me to \
@@ -36,40 +60,24 @@ def cancel():
 
 @ask.intent("WhatIsMyShoppingListIntent")
 def my_shopping_list():
-    user = context.System.user
-    if not hasattr(user, "permissions") or \
-       not hasattr(user.permissions, "consentToken"):
+    if hasnt_allowed_list_permissions():
         return statement(LIST_ACCESS)
-    TOKEN = context.System.user.permissions.consentToken
-    if TOKEN == None:
-        return statement(LIST_ACCESS)
-    shopping_list = api.shopping_list_items(TOKEN)
-    speech = "Your list is "
-    if shopping_list == []:
-        speech += "empty"
-    else:
-        speech += " and ".join(shopping_list)
-    return statement(speech)
+    TOKEN = get_token()
+    shopping_list = api.shopping_list_items(TOKEN))
+    return statement(get_shopping_list_text(shopping_list))
 
 @ask.intent("DeleteItemFromShoppingListIntent")
 def delete_from_shopping_list(item):
-    user = context.System.user
-    if not hasattr(user, "permissions") or \
-       not hasattr(user.permissions, "consentToken"):
+    if hasnt_allowed_list_permissions():
         return statement(LIST_ACCESS)
-    TOKEN = context.System.user.permissions.consentToken
-    if TOKEN == None:
-        return statement(LIST_ACCESS)
+    TOKEN = get_token()
     shopping_list = api.get_shopping_list(TOKEN)
     if shopping_list == []:
         return statement("Your list is empty.")
-    item_id = ""
-    for i in shopping_list['items']:
-        if i['value'] == item and \
-              i['status'] == 'active':
-            item_id = i['id']
-    r = api.delete_item_in_shopping_list(item_id=item_id,
-                                         token=TOKEN)
+    r = api.delete_item_in_shopping_list(
+      item_id=get_item_id(shopping_list, item),
+      token=TOKEN
+    )
     if r.status_code == 200:
         return statement("Deleted {}.".format(item))
     return statement("Don't think I found {}.".format(item))
