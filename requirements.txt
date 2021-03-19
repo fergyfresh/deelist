@@ -9,7 +9,7 @@ Flask==0.12.1
 git+https://github.com/fergyfresh/flask-ask.git@master#egg=Flask-Ask
 idna==2.6
 itsdangerous==0.24
-Jinja2==2.10
+Jinja2==2.11.3
 MarkupSafe==1.0
 pycparser==2.18
 pyOpenSSL==17.0.0
